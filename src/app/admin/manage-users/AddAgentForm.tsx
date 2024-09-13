@@ -10,6 +10,7 @@ const AddAgentForm: React.FC<{
 }> = ({ onAgentAdded }) => {
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
+	const [password, setPassword] = useState<string>("");
 	const [error, setError] = useState<string>("");
 	const [managerEmail, setManagerEmail] = useState<string>("");
 
@@ -20,11 +21,13 @@ const AddAgentForm: React.FC<{
 				email,
 				name,
 				managerEmail,
+				password,
 				createdAt: serverTimestamp(),
 				updatedAt: serverTimestamp(),
 			});
 			setName("");
 			setEmail("");
+			setPassword("");
 			onAgentAdded(); // Notify parent to refresh the list
 			setError(""); // Clear any previous errors
 		} catch (error) {
@@ -72,6 +75,19 @@ const AddAgentForm: React.FC<{
 						type="managerEmail"
 						value={managerEmail}
 						onChange={(e) => setManagerEmail(e.target.value)}
+						required
+						className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					/>
+				</div>
+				<div>
+					<label className="block font-medium mb-1" htmlFor="password">
+						Password
+					</label>
+					<input
+						id="password"
+						type="password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
 						required
 						className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
 					/>
